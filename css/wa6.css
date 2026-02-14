@@ -172,4 +172,10 @@
             color: var(--color-text-dark);
           }
           
+        .space-xs { width: var(--spacing-xs); }
+        .space-sm { width: var(--spacing-sm); }
+        .space-md { width: var(--spacing-md); }
+        .space-lg { width: var(--spacing-lg); }
+        .space-xl { width: var(--spacing-xl); }
+
     

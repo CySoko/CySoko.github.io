@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href ="../../css/wa6.css">
+
+    <!--My Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <!-- HEADER -->
+        <header>
+          <h1>My Design System</h1>
+          <p class="body-text">
+            A single-page design system showcasing my color palette, typography scale, spacing system,
+            and interactive components—built with accessibility in mind.
+          </p>
+          <p class="small-text">Last updated: <!-- you can type the date here --></p>
+        </header>
+    
+        <!-- COLOR PALETTE -->
+        <section aria-labelledby="colors-title">
+          <h2 id="colors-title">Color Palette</h2>
+          <p class="body-text">
+            Each swatch includes its hex code and the contrast ratio for the text shown on top of it.
+          </p>
+    
+          <div class="color-palette">
+            <!-- Onyx -->
+            <div class="color-swatch" style="background:#12130F; color:#FBFFF1;">
+              <div class="swatch-title">Neutral (Onyx)</div>
+              <div class="swatch-hex">#12130F</div>
+              <div class="swatch-contrast">Text #FBFFF1 — Contrast 18.65:1</div>
+            </div>
+    
+            <!-- Jungle Teal -->
+            <div class="color-swatch" style="background:#5B9279; color:#12130F;">
+              <div class="swatch-title">Primary (Jungle Teal)</div>
+              <div class="swatch-hex">#5B9279</div>
+              <div class="swatch-contrast">Text #12130F — Contrast 4.89:1</div>
+            </div>
+    
+            <!-- Celadon -->
+            <div class="color-swatch" style="background:#8FCB9B; color:#12130F;">
+              <div class="swatch-title">Secondary (Celadon)</div>
+              <div class="swatch-hex">#8FCB9B</div>
+              <div class="swatch-contrast">Text #12130F — Contrast 9.93:1</div>
+            </div>
+    
+            <!-- Taupe -->
+            <div class="color-swatch" style="background:#8F8073; color:#12130F;">
+              <div class="swatch-title">Accent (Taupe)</div>
+              <div class="swatch-hex">#8F8073</div>
+              <div class="swatch-contrast">Text #12130F — Contrast 4.89:1</div>
+            </div>
+    
+            <!-- Alabaster Grey -->
+            <div class="color-swatch" style="background:#EAE6E5; color:#12130F; border:1px solid rgba(18,19,15,0.15);">
+              <div class="swatch-title">Background (Alabaster Grey)</div>
+              <div class="swatch-hex">#EAE6E5</div>
+              <div class="swatch-contrast">Text #12130F — Contrast 15.06:1</div>
+            </div>
+          </div>
+        </section>
+    
+        <!-- TYPOGRAPHY -->
+        <section aria-labelledby="type-title">
+          <h2 id="type-title">Typography Scale</h2>
+          <p class="body-text">
+            Heading font: <strong>Bungee</strong>. Body font: <strong>Space Grotesk</strong>.
+          </p>
+    
+          <h1>H1 — Primary Heading Example</h1>
+          <h2>H2 — Section Heading Example</h2>
+          <h3>H3 — Subheading Example</h3>
+    
+          <p class="body-text">
+            Body text example: This is how standard paragraph text will look across my pages. It uses my
+            primary font, consistent line-height, and neutral text color for readability.
+          </p>
+    
+          <p class="small-text">
+            Small text example: Great for captions, metadata, helper text, and subtle labels.
+          </p>
+        </section>
+    
+        <!-- SPACING SYSTEM -->
+        <section aria-labelledby="spacing-title">
+          <h2 id="spacing-title">Spacing System</h2>
+          <p class="body-text">
+            My spacing scale is built on consistent increments for predictable layout and alignment.
+          </p>
+    
+          <!-- Each row shows the token + the size -->
+          <div class="spacing-demo">
+            <strong>XS</strong>
+            <span class="small-text">8px</span>
+            <div class="spacing-block space-xs" aria-hidden="true"></div>
+          </div>
+    
+          <div class="spacing-demo">
+            <strong>SM</strong>
+            <span class="small-text">16px</span>
+            <div class="spacing-block space-sm" aria-hidden="true"></div>
+          </div>
+    
+          <div class="spacing-demo">
+            <strong>MD</strong>
+            <span class="small-text">24px</span>
+            <div class="spacing-block space-md" aria-hidden="true"></div>
+          </div>
+    
+          <div class="spacing-demo">
+            <strong>LG</strong>
+            <span class="small-text">32px</span>
+            <div class="spacing-block space-lg" aria-hidden="true"></div>
+          </div>
+    
+          <div class="spacing-demo">
+            <strong>XL</strong>
+            <span class="small-text">48px</span>
+            <div class="spacing-block space-xl" aria-hidden="true"></div>
+          </div>
+        </section>
+    
+        <!-- COMPONENTS -->
+        <section aria-labelledby="components-title">
+          <h2 id="components-title">Interactive Components</h2>
+          <p class="body-text">
+            These components use my palette and typography tokens and include hover, active, visited, and focus states.
+            Try tabbing through to see the focus ring.
+          </p>
+    
+          <h3>Buttons</h3>
+          <p class="body-text">
+            <a class="button" href="#components-title">Primary Button</a>
+            <a class="button" href="#type-title">Secondary Action</a>
+          </p>
+    
+          <h3>Links (hover + visited)</h3>
+          <p class="body-text">
+            Here is a link style example:
+            <a class="link" href="https://coolors.co/" target="_blank" rel="noopener noreferrer">
+              Coolors Palette Generator
+            </a>
+          </p>
+          <p class="small-text">
+            Click the link once and come back to see the visited style.
+          </p>
+    
+          <h3>Form Input</h3>
+          <label class="body-text" for="email">Example input field</label><br />
+          <input id="email" type="email" placeholder="name@example.com" aria-describedby="input-help" />
+          <p id="input-help" class="small-text">Helper text: This demonstrates default + focus styling.</p>
+        </section>
+    
+        <footer>
+          <p class="small-text">© Your Name — Design System Page</p>
+        </footer>
+      </main>
+</body>
+</html>
