@@ -1,0 +1,86 @@
+/* Flexbox1 */
+
+body {
+    font: 1.2em / 1.5 sans-serif;
+  }
+  .flex1 nav ul {
+    max-width: 750px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .flex1 nav a:link,
+  .flex1 nav a:visited {
+    background-color: #4d7298;
+    border: 2px solid #77a6b6;
+    border-radius: 0.5em;
+    color: white;
+    padding: 0.5em;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .flex1 nav ul {
+    /* Add styles here */
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+ /* Flexbox2 */
+
+  
+ .flex2 ul {
+    max-width: 750px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .flex2 li {
+    background-color: #4d7298;
+    border: 2px solid #77a6b6;
+    border-radius: 0.5em;
+    color: white;
+    padding: 0.5em;
+  }
+  
+  .flex2 ul {
+    /* Add styles here */
+    display: flex;
+  }
+  
+  .flex2 li {
+    /* Add styles here */
+    flex: 1;
+  }
+
+/* Flexbox3 */
+
+  
+.flex3 ul {
+    width: 450px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .flex3 li {
+    background-color: #4d7298;
+    border: 2px solid #77a6b6;
+    border-radius: 0.5em;
+    color: white;
+    padding: 0.5em;
+    margin: 0.5em;
+  }
+  
+  .flex3 ul {
+    /* Add styles here */
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .flex3  li {
+    /* Add styles here */
+    flex: auto;
+  }
