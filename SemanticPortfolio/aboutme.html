@@ -1,39 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../SemanticPortfolio/Portfolio.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A look into me</title>
-    <style>
-        img {
-            width: 325px;
-            height: 350px;
-        }
-        nav {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>A Look Into More About Me</h1>
-    </header>
+   
 
-    <nav>
-            
-        <a href = "home.html">Home</a>
-        <a href = "projects.html">Projects and Expirience</a>
-        <a href = "resumecontact.html">Resume and Contact</a>
-    
-    </nav>
+    <nav class="navbar">                                                                                                                                                              
+      <a href="home.html">Home</a>                                                                                                                                                  
+      <a href="aboutme.html">About Me</a>
+      <a href="resumecontact.html">Resume and Contact</a>  
+      <a href="projects.html">Projects</a>                                                                                                                         
+  </nav>     
+  <header>
+    <h1>A Look Into More About Me</h1>
+</header>
 
     <main>
-        <img src="../SemanticPortfolio/SNowboarding.jpeg" tabindex="3" alt="Photo of me Snowboarding">
-        <img src="../SemanticPortfolio/Scholarship.jpeg" tabindex="3" alt="Photo of me getting a scholarship award">
-        <img src="../SemanticPortfolio/surf.jpeg" tabindex="3" alt="Photo of me waksurfing">
-        <section>
+      <div class="image-row card">
+        <img src="../SemanticPortfolio/Images/SNowboarding.jpeg" tabindex="3" alt="Photo of me Snowboarding">
+        <img src="../SemanticPortfolio/Images/Scholarship.jpeg" tabindex="3" alt="Photo of me getting a scholarship award">
+        <img src="../SemanticPortfolio/Images/surf.jpeg" tabindex="3" alt="Photo of me waksurfing">
+      </div>
+      <div class="two-column">
+        <section class="card">
           <h2>About Me</h2>
           
           <article>
@@ -56,7 +50,7 @@
           </article>
         </section>
 
-        <aside>
+        <aside class="card">
             <h3>Quick Facts</h3>
             <ul>
               <li>Major: Creative Technology & Design</li>
@@ -64,7 +58,7 @@
               <li>Tools: HTML, Fusion, Arduino, Excel</li>
             </ul>
         </aside>
-        
+      </div>
           <footer>
             <p>© 2026 Cyril Sokolov</p>
           </footer>

@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+    <link rel="stylesheet" href="../SemanticPortfolio/Portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     
     <title>Portfolio Homepage</title>
-    
-    
-    <style>
-        img {
-            width: 275px;
-            height: 300px;
-        }
-        nav {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-    </style>
 </head>
 <body>
+    
+    <nav class="navbar">                                                                                                                                                              
+        <a href="home.html">Home</a>                                                                                                                                                  
+        <a href="aboutme.html">About Me</a>
+        <a href="resumecontact.html">Resume and Contact</a> 
+        <a href="projects.html">Projects</a>                                                                                                                          
+    </nav>     
     <header>
-        <h1>Welcome to my Portfolio</h1>
+        <h1>Cyril Sokolov</h1>
+        
     </header>
-
-    <nav>
-            
-                <a href = "aboutme.html">About Me</a>
-                <a href = "projects.html">Projects and Expirience</a>
-                <a href = "resumecontact.html">Resume and Contact</a>
-            
-    </nav>
 
 
     <main>
-        <img src="../SemanticPortfolio/motopic.jpeg" tabindex="3" alt = "Photo of me on a Harley">
-        <h2>Who is Cy</h2>
-            <p>
-            I am Cyril Sokolov, a current second year student at the University of Colorado Boulder.
-             I am studying Creative Technology and Design in the Atlas school of Engineering.
-            </p>
-            <p>
-                My primary focuses are developing my skillset and experience in the field of 
-                design engineering, health and wellness as well as business entrepreneurship.
-            </p>
-
+        <section class="hero card">
+            <div class="hero-text">
+                <h2>Who?</h2>
+                <p>
+                    I am <span class="highlight">Cyril Sokolov</span>, a current second-year student at the
+                    University of Colorado Boulder studying Creative Technology and Design in the ATLAS School of Engineering.
+                </p>
+                <p>
+                    My main interests are <span class="highlight">design engineering</span>,
+                    <span class="highlight">health and wellness</span>, and
+                    <span class="highlight">business entrepreneurship</span>.
+                </p>
+                <a class="button" href="projects.html">See My Projects</a>
+            </div>
+    
+            <div class="hero-image">
+                <img src="../SemanticPortfolio/Images/motopic.jpeg" alt="Photo of me on a Harley">
+            </div>
+        </section>
 
     </main>
 

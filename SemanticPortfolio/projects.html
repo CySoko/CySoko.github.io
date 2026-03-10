@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../SemanticPortfolio/Portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Projects</title>
 
-    <style>
-        img {
-            width: 275px;
-            height: 300px;
-        }
-        nav {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-    </style>
+    
 </head>
 <body>
+   
+    <nav class="navbar">                                                                                                                                                              
+        <a href="home.html">Home</a>                                                                                                                                                  
+        <a href="aboutme.html">About Me</a>
+        <a href="resumecontact.html">Resume and Contact</a>
+        <a href="projects.html">Projects</a>                                                                                                                           
+    </nav>    
     <header>
         <h1>Projects and Expirience</h1>
     </header>
-
-    <h2>Ill add this later because it will take a while with a bunch of images and descriptions</h2>
-
-    <nav>
-            
-        <a href = "home.html">Home</a>
-        <a href = "aboutme.html">About Me</a>
-        <a href = "resumecontact.html">Resume and Contact</a>
     
-</nav>
+    
+    <div class="project-item">
+          <h3>Refrigerator Defence System</h3>
+          <p>I rebuilt my IDC1 project while taking the class in ATLAS called Object to be more interactive by hacking a taser circuit — replacing the servo with a reed switch, relay, and transistor. After troubleshooting fried components and ill-fitting parts, I got it working with a shocking component, LCD screen, and finished it off with a laser-cut wooden enclosure.</p>
+        
+
+        <div class="image-row" style="grid-template-columns: repeat(4, 1fr);">
+            <img src="../SemanticPortfolio/Images/TaserWithBreadboard.jpeg" alt="Taser circuit connected to breadboard">
+            <img src="../SemanticPortfolio/Images/AllArduinoComponents.jpeg" alt="Arduino with LCD screen soldered in place">
+            <img src="../SemanticPortfolio/Images/LaserCutEnclosure.jpeg" alt="Laser-cut wooden enclosure with engraved face">
+            <img src="../SemanticPortfolio/Images/AssemblingComponents.png" alt="Completed project being assembled">
+          </div>
+          
+          <a href="https://drive.google.com/file/d/1OMvl33ouRnejNjK05ncDSZdcrg_WQI9f/view" target="_blank">Watch the documentation video</a>
+      </div>
 <footer>
     <p>© 2026 Cyril Sokolov</p>
 </footer>
