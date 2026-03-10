@@ -65,26 +65,30 @@ h3 {
 .navbar {
     display: flex;
     gap: 32px;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     background-color: var(--green);
     padding: 16px;
     border-radius: 16px;
     margin-bottom: 48px;
+    /* border-bottom: 2px solid var(--green); */
 }
 
 .navbar a {
     color: var(--light);
     font-weight: 700;
-    padding: 8px 16px;
-    border-radius: 10px;
-    background-color: #4a7a63;
+    padding: 8px 4px;
+    /* border-radius: 10px; */
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
 }
 
+
+.navbar a.active,
 .navbar a:hover {
-    background-color: #3d6652;
-    color: var(--light);
+    border-bottom: 3px solid var(--dark);
+    color: var(--dark);
 }
-
 
 .card {
     background-color: #ffffff;
@@ -174,4 +178,15 @@ footer {
         align-items: center;
     }
 }
-
+.logo {
+    display: inline-block;
+    background-color: var(--green);
+    color: var(--light);
+    font-family: "Bungee", sans-serif;
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 10px;
+}
