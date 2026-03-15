@@ -71,10 +71,9 @@ h3 {
     justify-content: space-between;
     align-items: center;
     background-color: var(--green);
-    padding: 16px;
-    border-radius: 16px;
-    margin-bottom: 48px;
-    /* border-bottom: 2px solid var(--green); */
+    padding: 16px 36px;
+    border-radius: 0;
+    margin: 0 -20px 48px -20px;
 }
 
 .navbar a {
@@ -100,12 +99,16 @@ h3 {
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     margin-bottom: 32px;
 }
+.two-column .card {
+    margin-bottom: 0;
+}
 .hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
     align-items: center;
     margin-bottom: 48px;
+    justify-items: center;
 }
 
 .hero img {
@@ -192,4 +195,46 @@ footer {
     line-height: 45px;
     text-align: center;
     border-radius: 10px;
+}
+
+@media (max-width: 768px) {                                                                                                                                                       
+    .logo {                                                                                                                                                                       
+        font-size: 0;                                                                                                                                                             
+        width: 40px;                                                                                                                                                              
+    }                                                                                                                                                                             
+    .logo::after {
+        content: "SG";
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 770px) {                                                                                                                                                       
+    body {                                                                                                                                                                        
+        margin: 0 10px;                                                                                                                                                           
+    }                                                                                                                                                                                                                                                                                                                                                      
+    .navbar {                                                                                                                                                                     
+        margin: 0 -10px 48px -10px;
+        flex-direction: row;                                                                                                                                                          
+        justify-content: space-between;                                                                                                                                               
+        margin: 0 -10px 48px -10px;                                                                                                                                                   
+        padding: 12px 16px;                                                                                                                                                  
+    }
+    .navbar a {
+        font-size: 0.7rem;
+        padding: 4px 2px;
+    }
+    .hero-image { order: 1; }
+    .hero-text  { order: 2; }
+    .hero {
+        height: auto;
+    }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.4rem; }
+    .logo {
+        font-size: 0;
+        width: 40px;
+    }
+    .logo::after {
+        content: "SG";
+        font-size: 1.2rem;
+    }
 }
