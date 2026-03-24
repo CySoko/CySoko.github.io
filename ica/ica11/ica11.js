@@ -11,9 +11,9 @@ function randomValueFromArray(array) {
 
 // Raw text strings
 
-const characters = [Willy the Goblin, Big Daddy, Father CHristmas];
-const places = [the soup kitchen, Disneyland, the White House];
-const events = [spontaneously combusted, melted into a puddle on the sidewalk, turned into a slug and slithered away];
+const characters = ["Arnold Swachenager", "Donald Duck", "The Punisher"];
+const places = ["THE BASEMENT", "the top of a mountain", "the old cabin"];
+const events = ["got belugeoned by a horde of little poeple", "were eaten by a yeti", "sank deep beneath the snow"];
 
 
 // Partial return random string function
@@ -22,7 +22,8 @@ function returnRandomStoryString() {
     const randomCharacter = randomValueFromArray(characters);
     const randomPlace = randomValueFromArray(places);
     const randomEvent = randomValueFromArray(events);
-  let storyText = It was 94 Fahrenheit outside, so ${randomCharacter} went for a walk. When they got to ${randomPlace}, they stared in horror for a few moments, then ${randomEvent}. Bob saw the whole thing, but was not surprised — ${randomCharacter} weighs 300 pounds, and it was a hot day.
+  let storyText = `It was a cold winter night, the speckles of snow were quickly turning into a blizzard and ${randomCharacter} decided to brave the storm. When they got to ${randomPlace}, 
+  they stared in horror for a few moments, then ${randomEvent}. Bob saw the whole thing, but was not surprised — ${randomCharacter} weighs 300 pounds, and it was a freezing blizzard.`;
 
   return storyText;
 }
@@ -32,16 +33,21 @@ function returnRandomStoryString() {
 generateBtn.addEventListener("click", generateStory);
 
 function generateStory() {
+  let newStory = returnRandomStoryString();
+
   if (customName.value !== "") {
     const name = customName.value;
+    newStory = newStory.replace("Bob", name);
   }
 
   if (document.getElementById("uk").checked) {
-    const weight = Math.round(300);
-    const temperature = Math.round(94);
+    const weight = Math.round(300 / 2.205) + " kilograms";
+    const temperature = Math.round((94 - 32) * 5 / 9) + " centigrade";
+    newStory = newStory.replace("300 pounds", weight);
+    newStory = newStory.replace("94 Fahrenheit", temperature);
   }
 
-  // TODO: replace "" with the correct expression
-  story.textContent = "";
+  story.textContent = newStory;
   story.style.visibility = "visible";
 }
+
