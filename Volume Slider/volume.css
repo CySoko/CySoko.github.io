@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: white;
+  user-select: none;
+}
+
+/* Arena fills the whole window */
+#arena {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Dial: simple circle */
+#dial {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid black;
+  background: #ddd;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Controls — fixed to bottom center, always on top */
+#controls {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+/* Marker line showing volume rotation */
+#dial-marker {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: black;
+  left: 50%;
+  top: 6px;
+  transform-origin: bottom center;
+  transform: translateX(-50%);
+}
+
