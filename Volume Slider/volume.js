@@ -211,10 +211,10 @@ function updateDial() {
     dvx += Math.cos(angle3) * 0.03;
     dvy += Math.sin(angle3) * 0.03;
 
-  } else if (state === 'RELAXED') {
-    // Drift back toward center
-    dvx += (ARENA_W / 2 - dx) * RETURN_FORCE;
-    dvy += (ARENA_H / 2 - dy) * RETURN_FORCE;
+  // } else if (state === 'RELAXED') {
+  //   // Drift back toward center
+  //   dvx += (ARENA_W / 2 - dx) * RETURN_FORCE;
+  //   dvy += (ARENA_H / 2 - dy) * RETURN_FORCE;
 
   } else if (state === 'CALM') {
     // Slow to a stop
