@@ -38,7 +38,7 @@ function angleTo(x1, y1, x2, y2) {
   return Math.atan2(y2 - y1, x2 - x1);
 }
 
-// rolling average of cursor speed
+//average of cursor speed
 function updateCursorSpeed() {
   speedSamples[speedIndex] = dist(prevMx, prevMy, mx, my);
   speedIndex = (speedIndex + 1) % SAMPLES;
@@ -47,7 +47,7 @@ function updateCursorSpeed() {
   cursorSpeed = total / SAMPLES;
 }
 
-// dial movement and wall bouncing
+//dial movement and wall bouncing
 function updateDial() {
   const d = dist(mx, my, dx, dy);
 
@@ -89,7 +89,7 @@ function updateDial() {
   if (dy > ARENA_H - PAD) { dy = ARENA_H - PAD; dvy = -Math.abs(dvy) * 0.4; }
 }
 
-// update dial position and volume label
+//dial position and volume label
 function render() {
   dialEl.style.left = dx + 'px';
   dialEl.style.top = dy + 'px';
@@ -98,7 +98,7 @@ function render() {
   markerEl.style.transform = 'translateX(-50%) rotate(' + rotation + 'deg)';
 }
 
-// mouse tracking
+//mouse tracking
 arena.addEventListener('mousemove', function(e) {
   prevMx = mx;
   prevMy = my;
