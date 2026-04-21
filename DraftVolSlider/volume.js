@@ -16,14 +16,14 @@ let ARENA_W = window.innerWidth;
 let ARENA_H = window.innerHeight;
 const RADIUS = 30;
 const PAD = RADIUS + 2;
-const PANIC_D = 180;
-const CAUTION_D = 350;
-const WATCH_D = 550;
-const PANIC_F = 1.4;
+const PANIC_D = 130;
+const CAUTION_D = 260;
+const WATCH_D = 420;
+const PANIC_F = 1.8;
 const CAUTION_F = 0.28;
-const RETURN_F = 0.003;
+const RETURN_F = 0.008;
 const FRICTION = 0.82;
-const MAX_SPEED = 18;
+const MAX_SPEED = 26;
 const SAMPLES = 12;
 
 let speedSamples = [];
@@ -98,10 +98,10 @@ function updateDial() {
   dx += dvx;
   dy += dvy;
 
-  if (dx < PAD)           { dx = PAD;           dvx =  Math.abs(dvx) * 0.4; }
-  if (dx > ARENA_W - PAD) { dx = ARENA_W - PAD; dvx = -Math.abs(dvx) * 0.4; }
-  if (dy < PAD)           { dy = PAD;            dvy =  Math.abs(dvy) * 0.4; }
-  if (dy > ARENA_H - PAD) { dy = ARENA_H - PAD; dvy = -Math.abs(dvy) * 0.4; }
+  if (dx < PAD)           { dx = PAD;           dvx =  Math.abs(dvx) * 0.85; }
+  if (dx > ARENA_W - PAD) { dx = ARENA_W - PAD; dvx = -Math.abs(dvx) * 0.85; }
+  if (dy < PAD)           { dy = PAD;            dvy =  Math.abs(dvy) * 0.85; }
+  if (dy > ARENA_H - PAD) { dy = ARENA_H - PAD; dvy = -Math.abs(dvy) * 0.85; }
 }
 
 function render() {
@@ -122,6 +122,7 @@ document.addEventListener('mousedown', function() {
 
 document.addEventListener('mouseup', function() {
   dragging = false;
+  caught = false;
 });
 
 // rotate marker while caught
@@ -158,7 +159,8 @@ window.addEventListener('resize', function() {
 // lock in the volume and release the dial
 submitBtn.addEventListener('click', function() {
   clearInterval(timerInterval);
-  alert('Volume set to ' + Math.round(volume) + '%');
+  const elapsed = Math.floor((Date.now() - timerStart) / 1000);
+  alert('Volume set to ' + Math.round(volume) + '%\nTime taken: ' + elapsed + 's');
   caught = false;
   dragging = false;
   hasAdjusted = false;
