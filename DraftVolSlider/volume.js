@@ -3,16 +3,24 @@ const dialEl = document.getElementById('dial');
 const markerEl = document.getElementById('dial-marker');
 const volumeDisplay = document.getElementById('volume-display');
 const submitBtn = document.getElementById('submit-btn');
+const timerDisplay = document.getElementById('timer-display');
+
+let timerStart = Date.now();
+let hasAdjusted = false;
+let timerInterval = setInterval(function() {
+  const elapsed = Math.floor((Date.now() - timerStart) / 1000);
+  timerDisplay.textContent = elapsed + 's';
+}, 1000);
 
 let ARENA_W = window.innerWidth;
 let ARENA_H = window.innerHeight;
 const RADIUS = 30;
 const PAD = RADIUS + 2;
-const PANIC_D = 100;
-const CAUTION_D = 220;
-const WATCH_D = 380;
-const PANIC_F = 1.1;
-const CAUTION_F = 0.18;
+const PANIC_D = 180;
+const CAUTION_D = 350;
+const WATCH_D = 550;
+const PANIC_F = 1.4;
+const CAUTION_F = 0.28;
 const RETURN_F = 0.003;
 const FRICTION = 0.82;
 const MAX_SPEED = 18;
@@ -129,6 +137,12 @@ document.addEventListener('mousemove', function(e) {
     if (angleDeg > 180) angleDeg -= 360;
     const clamped = Math.max(-135, Math.min(135, angleDeg));
     volume = (clamped + 135) / 270 * 100;
+
+    if (!hasAdjusted) {
+      hasAdjusted = true;
+      timerStart = Date.now();
+      timerDisplay.textContent = '0s';
+    }
   }
 });
 
@@ -143,9 +157,16 @@ window.addEventListener('resize', function() {
 
 // lock in the volume and release the dial
 submitBtn.addEventListener('click', function() {
+  clearInterval(timerInterval);
   alert('Volume set to ' + Math.round(volume) + '%');
   caught = false;
   dragging = false;
+  hasAdjusted = false;
+  timerStart = Date.now();
+  timerInterval = setInterval(function() {
+    const elapsed = Math.floor((Date.now() - timerStart) / 1000);
+    timerDisplay.textContent = elapsed + 's';
+  }, 1000);
 });
 
 function gameLoop() {
