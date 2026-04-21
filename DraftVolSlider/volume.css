@@ -17,17 +17,22 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  pointer-events: none;
 }
 
 /* dial */
 #dial {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   border: 2px solid black;
+  border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* marker line on the dial */
@@ -49,4 +54,17 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#volume-display {
+  font-size: 20px;
+}
+
+#submit-btn {
+  font-size: 16px;
+  padding: 6px 14px;
 }
