@@ -1,6 +1,3 @@
-const arena = document.getElementById('arena');
-const dialEl = document.getElementById('dial');
-const markerEl = document.getElementById('dial-marker');
 const volumeDisplay = document.getElementById('volume-display');
 const submitBtn = document.getElementById('submit-btn');
 const timerDisplay = document.getElementById('timer-display');
@@ -14,7 +11,7 @@ let timerInterval = setInterval(function() {
 
 let ARENA_W = window.innerWidth;
 let ARENA_H = window.innerHeight;
-const RADIUS = 30;
+const RADIUS = 32;
 const PAD = RADIUS + 2;
 const PANIC_D = 130;
 const CAUTION_D = 260;
@@ -25,23 +22,38 @@ const RETURN_F = 0.008;
 const FRICTION = 0.82;
 const MAX_SPEED = 26;
 const SAMPLES = 12;
+const VOL_RATE = 2.0; // % per frame while holding a dial
 
-let speedSamples = [];
-for (let i = 0; i < SAMPLES; i++) { speedSamples.push(0); }
-let speedIndex = 0;
-let cursorSpeed = 0;
-
-let dx = ARENA_W / 2;
-let dy = ARENA_H / 2;
-let dvx = 0;
-let dvy = 0;
 let mx = ARENA_W / 2;
 let my = ARENA_H / 2;
 let prevMx = mx;
 let prevMy = my;
+
+let speedSamples = new Array(SAMPLES).fill(0);
+let speedIndex = 0;
+let cursorSpeed = 0;
+
 let volume = 50;
-let caught = false;
-let dragging = false;
+let caughtId = null; // 'up' or 'down' or null
+
+const dials = [
+  {
+    id: 'up',
+    el: document.getElementById('dial-up'),
+    x: ARENA_W * 0.35,
+    y: ARENA_H / 2,
+    vx: 0,
+    vy: 0
+  },
+  {
+    id: 'down',
+    el: document.getElementById('dial-down'),
+    x: ARENA_W * 0.65,
+    y: ARENA_H / 2,
+    vx: 0,
+    vy: 0
+  }
+];
 
 function dist(x1, y1, x2, y2) {
   const ax = x2 - x1, ay = y2 - y1;
@@ -56,99 +68,110 @@ function updateCursorSpeed() {
   speedSamples[speedIndex] = dist(prevMx, prevMy, mx, my);
   speedIndex = (speedIndex + 1) % SAMPLES;
   let total = 0;
-  for (let s = 0; s < SAMPLES; s++) { total += speedSamples[s]; }
+  for (let i = 0; i < SAMPLES; i++) total += speedSamples[i];
   cursorSpeed = total / SAMPLES;
 }
 
-function updateDial() {
-  if (caught) {
-    dvx = 0;
-    dvy = 0;
+function updateDial(dial) {
+  if (dial.id === caughtId) {
+    dial.x = mx;
+    dial.y = my;
+    dial.vx = 0;
+    dial.vy = 0;
     return;
   }
 
-  const d = dist(mx, my, dx, dy);
+  const d = dist(mx, my, dial.x, dial.y);
 
   if (d < PANIC_D) {
-    const angle = angleTo(mx, my, dx, dy);
+    const angle = angleTo(mx, my, dial.x, dial.y);
     const speedMult = 1 + cursorSpeed * 0.18;
-    dvx += Math.cos(angle) * PANIC_F * speedMult;
-    dvy += Math.sin(angle) * PANIC_F * speedMult;
+    dial.vx += Math.cos(angle) * PANIC_F * speedMult;
+    dial.vy += Math.sin(angle) * PANIC_F * speedMult;
   } else if (d < CAUTION_D) {
-    const angle = angleTo(mx, my, dx, dy);
-    dvx += Math.cos(angle) * CAUTION_F;
-    dvy += Math.sin(angle) * CAUTION_F;
+    const angle = angleTo(mx, my, dial.x, dial.y);
+    dial.vx += Math.cos(angle) * CAUTION_F;
+    dial.vy += Math.sin(angle) * CAUTION_F;
   } else if (d < WATCH_D) {
-    const angle = angleTo(mx, my, dx, dy);
-    dvx += Math.cos(angle) * 0.03;
-    dvy += Math.sin(angle) * 0.03;
+    const angle = angleTo(mx, my, dial.x, dial.y);
+    dial.vx += Math.cos(angle) * 0.03;
+    dial.vy += Math.sin(angle) * 0.03;
   } else {
-    dvx += (ARENA_W / 2 - dx) * RETURN_F;
-    dvy += (ARENA_H / 2 - dy) * RETURN_F;
+    dial.vx += (ARENA_W / 2 - dial.x) * RETURN_F;
+    dial.vy += (ARENA_H / 2 - dial.y) * RETURN_F;
   }
 
-  dvx *= FRICTION;
-  dvy *= FRICTION;
-  const speed = Math.sqrt(dvx * dvx + dvy * dvy);
+  dial.vx *= FRICTION;
+  dial.vy *= FRICTION;
+  const speed = Math.sqrt(dial.vx * dial.vx + dial.vy * dial.vy);
   if (speed > MAX_SPEED) {
-    dvx = (dvx / speed) * MAX_SPEED;
-    dvy = (dvy / speed) * MAX_SPEED;
+    dial.vx = (dial.vx / speed) * MAX_SPEED;
+    dial.vy = (dial.vy / speed) * MAX_SPEED;
   }
 
-  dx += dvx;
-  dy += dvy;
+  dial.x += dial.vx;
+  dial.y += dial.vy;
 
-  if (dx < PAD)           { dx = PAD;           dvx =  Math.abs(dvx) * 0.85; }
-  if (dx > ARENA_W - PAD) { dx = ARENA_W - PAD; dvx = -Math.abs(dvx) * 0.85; }
-  if (dy < PAD)           { dy = PAD;            dvy =  Math.abs(dvy) * 0.85; }
-  if (dy > ARENA_H - PAD) { dy = ARENA_H - PAD; dvy = -Math.abs(dvy) * 0.85; }
+  if (dial.x < PAD)           { dial.x = PAD;           dial.vx =  Math.abs(dial.vx) * 0.85; }
+  if (dial.x > ARENA_W - PAD) { dial.x = ARENA_W - PAD; dial.vx = -Math.abs(dial.vx) * 0.85; }
+  if (dial.y < PAD)           { dial.y = PAD;            dial.vy =  Math.abs(dial.vy) * 0.85; }
+  if (dial.y > ARENA_H - PAD) { dial.y = ARENA_H - PAD; dial.vy = -Math.abs(dial.vy) * 0.85; }
+}
+
+function applyDialRepulsion() {
+  const REPEL_D = 90;
+  const REPEL_F = 2.5;
+  const d = dist(dials[0].x, dials[0].y, dials[1].x, dials[1].y);
+  if (d < REPEL_D && d > 0) {
+    const angle = angleTo(dials[1].x, dials[1].y, dials[0].x, dials[0].y);
+    const force = REPEL_F * (1 - d / REPEL_D);
+    if (dials[0].id !== caughtId) {
+      dials[0].vx += Math.cos(angle) * force;
+      dials[0].vy += Math.sin(angle) * force;
+    }
+    if (dials[1].id !== caughtId) {
+      dials[1].vx -= Math.cos(angle) * force;
+      dials[1].vy -= Math.sin(angle) * force;
+    }
+  }
 }
 
 function render() {
-  dialEl.style.left = dx + 'px';
-  dialEl.style.top = dy + 'px';
+  for (const dial of dials) {
+    dial.el.style.left = dial.x + 'px';
+    dial.el.style.top = dial.y + 'px';
+  }
   volumeDisplay.textContent = Math.round(volume) + '%';
-  const rotation = (volume / 100) * 270 - 135;
-  markerEl.style.transform = 'translateX(-50%) rotate(' + rotation + 'deg)';
 }
 
-// catch the dial on click
 document.addEventListener('mousedown', function() {
-  if (dist(mx, my, dx, dy) < RADIUS) {
-    caught = true;
-    dragging = true;
+  for (const dial of dials) {
+    if (dist(mx, my, dial.x, dial.y) < RADIUS) {
+      caughtId = dial.id;
+      if (!hasAdjusted) {
+        hasAdjusted = true;
+        timerStart = Date.now();
+        timerDisplay.textContent = '0s';
+      }
+      break;
+    }
   }
 });
 
 document.addEventListener('mouseup', function() {
-  dragging = false;
-  caught = false;
+  caughtId = null;
 });
 
-// rotate marker while caught
 document.addEventListener('mousemove', function(e) {
   prevMx = mx;
   prevMy = my;
   mx = e.clientX;
   my = e.clientY;
   updateCursorSpeed();
-
-  if (caught && dragging) {
-    let angleDeg = Math.atan2(my - dy, mx - dx) * 180 / Math.PI + 90;
-    if (angleDeg > 180) angleDeg -= 360;
-    const clamped = Math.max(-135, Math.min(135, angleDeg));
-    volume = (clamped + 135) / 270 * 100;
-
-    if (!hasAdjusted) {
-      hasAdjusted = true;
-      timerStart = Date.now();
-      timerDisplay.textContent = '0s';
-    }
-  }
 });
 
 document.addEventListener('mouseleave', function() {
-  for (let s = 0; s < SAMPLES; s++) { speedSamples[s] = 99; }
+  speedSamples.fill(99);
 });
 
 window.addEventListener('resize', function() {
@@ -156,13 +179,11 @@ window.addEventListener('resize', function() {
   ARENA_H = window.innerHeight;
 });
 
-// lock in the volume and release the dial
 submitBtn.addEventListener('click', function() {
   clearInterval(timerInterval);
   const elapsed = Math.floor((Date.now() - timerStart) / 1000);
   alert('Volume set to ' + Math.round(volume) + '%\nTime taken: ' + elapsed + 's');
-  caught = false;
-  dragging = false;
+  caughtId = null;
   hasAdjusted = false;
   timerStart = Date.now();
   timerInterval = setInterval(function() {
@@ -172,7 +193,14 @@ submitBtn.addEventListener('click', function() {
 });
 
 function gameLoop() {
-  updateDial();
+  for (const dial of dials) {
+    updateDial(dial);
+  }
+  applyDialRepulsion();
+
+  if (caughtId === 'up')   volume = Math.min(100, volume + VOL_RATE);
+  if (caughtId === 'down') volume = Math.max(0,   volume - VOL_RATE);
+
   render();
   requestAnimationFrame(gameLoop);
 }
