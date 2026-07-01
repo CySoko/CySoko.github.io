@@ -57,7 +57,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
   const hasHover = window.matchMedia('(hover: hover)').matches;
   if (reducedMotion || !hasHover) return;
 
-  const MAX_TILT = 4; // degrees
+  const MAX_TILT = 1.5; // degrees
   const cards = document.querySelectorAll('.project-item');
   if (!cards.length) return;
 
