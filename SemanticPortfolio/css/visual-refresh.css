@@ -1,0 +1,221 @@
+/* ============================================================
+   visual-refresh.css
+   Visual design pass — additive overrides, loaded last.
+   Do NOT edit Portfolio.css or interactions.css.
+   ============================================================ */
+
+
+/* ── 1. New palette tokens ──────────────────────────────────── */
+
+:root {
+  --charcoal:            #2A2723;
+  --charcoal-light:      #3D3934;
+
+  /* Palette-tinted shadows */
+  --shadow-green:        rgba(91, 146, 121, 0.15);
+  --shadow-green-hover:  rgba(91, 146, 121, 0.22);
+  --shadow-charcoal:     rgba(42, 39, 35, 0.18);
+
+  /* Layout tokens */
+  --section-pad:  clamp(48px, 8vw, 96px);
+  --content-max:  1200px;
+  --content-pad:  clamp(24px, 4vw, 48px);
+}
+
+
+/* ── 2. Body — warm charcoal text, refined type scale ───────── */
+
+body {
+  color: var(--charcoal);
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.7;
+}
+
+
+/* ── 3. Grain / noise texture overlay ───────────────────────── */
+/*
+   Fixed overlay, pointer-events: none so it never blocks interaction.
+   Opacity 4% — barely perceptible; adds warmth/tactility to the cream bg.
+   background-size tiles the SVG turbulence filter output.
+*/
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+
+/* ── 4. Typography — display scale + font-family fixes ──────── */
+
+/*
+   H1 & H2 stay in Bungee (loud, display).
+   H3 moves to Space Grotesk 700 — readable heading weight
+   without competing with the display type above it.
+*/
+
+h1 {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--charcoal);
+}
+
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--charcoal-light);
+}
+
+/* All-caps small text — nav links, tags, labels */
+.navbar a {
+  letter-spacing: 0.08em;
+}
+
+
+/* ── 5. Layout — max-width container + vertical breathing room ─ */
+
+main,
+header {
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+/* Increase gap between major blocks inside sections */
+.two-column {
+  gap: 48px;
+}
+
+.image-row {
+  margin-bottom: 48px;
+}
+
+
+/* ── 6. Cards — palette-tinted shadows + generous padding ────── */
+
+.card {
+  padding: clamp(24px, 3vw, 32px);
+  box-shadow: 0 8px 24px var(--shadow-green);
+  transition: box-shadow 300ms ease;
+}
+
+.card:hover {
+  box-shadow: 0 16px 40px var(--shadow-green-hover);
+}
+
+.project-item {
+  box-shadow: 0 8px 24px var(--shadow-green);
+  transition: box-shadow 300ms ease, transform 400ms ease-out;
+}
+
+.project-item:hover {
+  box-shadow: 0 16px 40px var(--shadow-green-hover);
+}
+
+
+/* ── 7. Footer — charcoal background, full-bleed ────────────── */
+/*
+   Mirrors the navbar's negative-margin trick to break out of
+   the body's 20px side margin and span the full viewport width.
+*/
+
+footer {
+  background-color: var(--charcoal);
+  color: var(--light);
+  border-top: none;
+  margin-top: 64px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding: 40px 24px;
+}
+
+footer p {
+  color: var(--light);
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* Match the mobile body-margin override (0 10px) */
+@media (max-width: 770px) {
+  footer {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
+
+/* ── 8. Bento project grid (projects.html only) ──────────────── */
+/*
+   6-column grid. Cards span varying column counts for visual variance.
+   With a single card, :only-child collapses it to full width so the
+   grid doesn't look broken. Column-span rules kick in as more cards
+   are added — no HTML changes needed when adding future projects.
+
+   Pattern (multi-card):
+     card 1 → 4 cols (hero)
+     card 2 → 2 cols
+     card 3 → 2 cols
+     card 4 → 3 cols
+     card 5 → 3 cols
+     card 6+ → auto placement
+*/
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 32px;
+}
+
+/* Only child: expand to full width */
+.project-grid .project-item:only-child {
+  grid-column: 1 / -1;
+}
+
+/* Multi-card bento pattern */
+.project-grid .project-item:nth-child(1):not(:only-child) { grid-column: span 4; }
+.project-grid .project-item:nth-child(2)                  { grid-column: span 2; }
+.project-grid .project-item:nth-child(3)                  { grid-column: span 2; }
+.project-grid .project-item:nth-child(4)                  { grid-column: span 3; }
+.project-grid .project-item:nth-child(5)                  { grid-column: span 3; }
+/* Cards 6+ fall through to CSS grid auto-placement */
+
+/* Tablet — 2 equal columns */
+@media (max-width: 900px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-grid .project-item,
+  .project-grid .project-item:nth-child(n) {
+    grid-column: span 1;
+  }
+}
+
+/* Mobile — single column */
+@media (max-width: 480px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
