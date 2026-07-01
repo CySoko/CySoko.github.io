@@ -1,0 +1,28 @@
+/* ── Scroll-triggered reveal ──────────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Skip animation for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Tilt card ────────────────────────────────────────────────────────────── */
+
+.project-item {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
