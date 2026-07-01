@@ -73,8 +73,8 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
       const rotateX = -yNorm * MAX_TILT;
       const rotateY =  xNorm * MAX_TILT;
 
-      // Remove transition so tilt tracks the cursor in real time
-      card.style.transition = 'box-shadow 300ms ease-out';
+      // Short transition during tracking keeps movement smooth instead of snappy
+      card.style.transition = 'transform 80ms ease-out, box-shadow 300ms ease-out';
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
