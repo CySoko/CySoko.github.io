@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Goldn Tasting</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #fff; }
+  #app { position: fixed; inset: 0; width: 100%; height: 100%; height: 100dvh; border: 0; display: block; }
+</style>
+</head>
+<body>
+<!--
+  Goldn QR landing page.
+  The printed QR codes point HERE, so this address must never change.
+  If the Apps Script link ever changes, edit APP_URL below. Nothing gets reprinted.
+  MODE: 'frame'    = show the app inside this page (works around the multiple-Google-accounts bug)
+        'redirect' = send the visitor straight to APP_URL (use if framing ever breaks)
+-->
+<iframe id="app" title="Goldn Tasting" hidden></iframe>
+<noscript>
+  <p style="font:16px sans-serif;text-align:center;padding:40px 20px">
+    <a href="https://script.google.com/macros/s/AKfycbyyPmYUi8l64iu-0lTxY5vr834Szjfko-j2dmU88Y4c0P3FWBIzUZO0dhEpXyE4kuEePw/exec">Open the Goldn review</a>
+  </p>
+</noscript>
+<script>
+  var APP_URL = 'https://script.google.com/macros/s/AKfycbyyPmYUi8l64iu-0lTxY5vr834Szjfko-j2dmU88Y4c0P3FWBIzUZO0dhEpXyE4kuEePw/exec';
+  var MODE = 'frame';
+
+  // Pass the event tag through, e.g. cysoko.github.io/goldn/?event=farmers-market
+  var params = new URLSearchParams(location.search);
+  var target = APP_URL;
+  var ev = params.get('event');
+  if (ev) target += '?event=' + encodeURIComponent(ev.slice(0, 60));
+
+  if (MODE === 'redirect') {
+    location.replace(target);
+  } else {
+    var f = document.getElementById('app');
+    f.src = target;
+    f.hidden = false;
+  }
+</script>
+</body>
+</html>
